@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Estate - Luxury Beyond Imagination</title>
+    
+    <!-- Skeleton CSS Framework -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    
+    <style>
+        :root {
+            --dark-primary: #0d0d0d;
+            --dark-secondary: #1a1a1a;
+            --dark-accent: #2a2a2a;
+            --gold-primary: #c9a96e;
+            --gold-secondary: #b8941f;
+            --gold-light: #f4e4bc;
+            --white: #ffffff;
+            --gray-light: #f8f8f8;
+            --gray-medium: #888888;
+            --gray-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--dark-primary);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 4px;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--dark-accent);
+            border-top: 3px solid var(--gold-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        .navbar-dark {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-dark.scrolled {
+            padding: 15px 0;
+            background: rgba(13, 13, 13, 0.98);
+            border-bottom: 1px solid var(--gold-primary);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-dark {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold-primary);
+        }
+
+        /* Hero Section */
+        .hero-dark {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(13,13,13,0.8), rgba(201,169,110,0.1));
+        }
+
+        .hero-content-dark {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 30px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(201,169,110,0.2);
+            border: 1px solid var(--gold-primary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: var(--gold-primary);
+        }
+
+        .hero-title-dark {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--white), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 50px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-luxury {
+            padding: 18px 40px;
+            border: none;
+            border-radius: 0;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold {
+            background: var(--gold-primary);
+            color: var(--dark-primary);
+        }
+
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-gold:hover::before {
+            left: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark-primary);
+        }
+
+        /* Sections */
+        .section-dark {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-accent {
+            background: var(--dark-secondary);
+        }
+
+        .section-header-dark {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 100px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(201,169,110,0.1);
+            border: 1px solid var(--gold-primary);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            color: var(--gold-primary);
+        }
+
+        .section-title-dark {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            color: var(--white);
+            line-height: 1.2;
+        }
+
+        .section-description-dark {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Luxury Stats */
+        .luxury-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-top: 80px;
+        }
+
+        .stat-luxury {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, var(--dark-accent), var(--dark-secondary));
+            border: 1px solid rgba(201,169,110,0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-luxury::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-secondary));
+        }
+
+        .stat-luxury:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-primary);
+        }
+
+        .stat-number-luxury {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-label-luxury {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        /* Features Grid */
+        .features-luxury {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .feature-luxury {
+            background: linear-gradient(135deg, var(--dark-secondary), var(--dark-accent));
+            padding: 60px 40px;
+            border: 1px solid rgba(201,169,110,0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-luxury::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(201,169,110,0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-luxury:hover::before {
+            opacity: 1;
+        }
+
+        .feature-luxury:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon-luxury {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: var(--dark-primary);
+        }
+
+        .feature-title-luxury {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .feature-description-luxury {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Gallery */
+        .gallery-luxury {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+        }
+
+        .gallery-item-luxury {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            border: 2px solid rgba(201,169,110,0.3);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item-luxury:hover {
+            border-color: var(--gold-primary);
+            transform: scale(1.02);
+        }
+
+        .gallery-item-luxury img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item-luxury:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay-luxury {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: white;
+            padding: 40px 30px 30px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item-luxury:hover .gallery-overlay-luxury {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--gold-primary);
+        }
+
+        /* Price Section */
+        .price-luxury {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+            text-align: center;
+            padding: 100px 0;
+            border-top: 1px solid rgba(201,169,110,0.3);
+            border-bottom: 1px solid rgba(201,169,110,0.3);
+        }
+
+        .price-display {
+            font-size: 6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .price-note {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        /* Video Section */
+        .video-luxury {
+            position: relative;
+            padding: 0;
+            background: var(--dark-secondary);
+        }
+
+        .video-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            border: 3px solid var(--gold-primary);
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+        }
+
+        /* Map Section */
+        .map-luxury {
+            border: 3px solid var(--gold-primary);
+            height: 600px;
+            margin-top: 80px;
+        }
+
+        .map-luxury iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(100%) invert(92%) contrast(83%);
+        }
+
+        /* Contact Section */
+        .contact-luxury {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+            padding: 120px 0;
+        }
+
+        .contact-grid-luxury {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+            margin-top: 80px;
+        }
+
+        .contact-card-luxury {
+            background: linear-gradient(135deg, var(--dark-accent), var(--dark-secondary));
+            padding: 50px 40px;
+            border: 1px solid rgba(201,169,110,0.3);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .contact-card-luxury:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon-luxury {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2rem;
+            color: var(--dark-primary);
+        }
+
+        .contact-title-luxury {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .contact-details-luxury {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        .contact-details-luxury a {
+            color: var(--gold-primary);
+            text-decoration: none;
+        }
+
+        .whatsapp-luxury {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 50px;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .whatsapp-luxury:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-title-dark {
+                font-size: 3rem;
+            }
+            
+            .section-title-dark {
+                font-size: 2.5rem;
+            }
+            
+            .price-display {
+                font-size: 4rem;
+            }
+            
+            .features-luxury,
+            .gallery-luxury {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .video-wrapper iframe {
+                height: 400px;
+            }
+        }
+
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar-dark" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo-dark">ELITE ESTATE</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-dark">
+        <div class="hero-overlay"></div>
+        <div class="particles" id="particles"></div>
+        <div class="hero-content-dark">
+            <div class="hero-badge">Exclusive Listing</div>
+            <h1 class="hero-title-dark">Elite Estate</h1>
+            <p class="hero-subtitle">
+                Where architectural mastery meets uncompromising luxury. 
+                Experience a residence that transcends ordinary living.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-luxury btn-gold">
+                    <i class="fas fa-crown"></i>
+                    Private Viewing
+                </a>
+                <a href="#gallery" class="btn-luxury btn-outline">
+                    <i class="fas fa-play"></i>
+                    Virtual Experience
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="luxury-stats">
+                <div class="stat-luxury animate-in">
+                    <div class="stat-number-luxury">6</div>
+                    <div class="stat-label-luxury">Bedrooms</div>
+                </div>
+                <div class="stat-luxury animate-in">
+                    <div class="stat-number-luxury">5</div>
+                    <div class="stat-label-luxury">Bathrooms</div>
+                </div>
+                <div class="stat-luxury animate-in">
+                    <div class="stat-number-luxury">650</div>
+                    <div class="stat-label-luxury">SQM Living</div>
+                </div>
+                <div class="stat-luxury animate-in">
+                    <div class="stat-number-luxury">2000</div>
+                    <div class="stat-label-luxury">SQM Land</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section-dark section-accent">
+        <div class="container">
+            <div class="section-header-dark animate-in">
+                <div class="section-badge">Unmatched Excellence</div>
+                <h2 class="section-title-dark">Luxury Redefined</h2>
+                <p class="section-description-dark">
+                    Every element of this extraordinary estate has been meticulously crafted 
+                    to deliver an unparalleled living experience.
+                </p>
+            </div>
+            
+            <div class="features-luxury">
+                <div class="feature-luxury animate-in">
+                    <div class="feature-icon-luxury">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="feature-title-luxury">Premium Materials</h3>
+                    <p class="feature-description-luxury">
+                        Imported marble, hardwood floors, and custom millwork throughout. 
+                        Every surface reflects uncompromising quality and attention to detail.
+                    </p>
+                </div>
+                
+                <div class="feature-luxury animate-in">
+                    <div class="feature-icon-luxury">
+                        <i class="fas fa-wine-glass"></i>
+                    </div>
+                    <h3 class="feature-title-luxury">Wine Cellar</h3>
+                    <p class="feature-description-luxury">
+                        Temperature-controlled wine cellar with capacity for 500 bottles. 
+                        Perfect for the connoisseur with tasting area and humidor.
+                    </p>
+                </div>
+                
+                <div class="feature-luxury animate-in">
+                    <div class="feature-icon-luxury">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3 class="feature-title-luxury">Private Gym</h3>
+                    <p class="feature-description-luxury">
+                        Fully equipped fitness center with professional-grade equipment, 
+                        sauna, and spa facilities for ultimate wellness.
+                    </p>
+                </div>
+                
+                <div class="feature-luxury animate-in">
+                    <div class="feature-icon-luxury">
+                        <i class="fas fa-theater-masks"></i>
+                    </div>
+                    <h3 class="feature-title-luxury">Home Theater</h3>
+                    <p class="feature-description-luxury">
+                        State-of-the-art cinema room with 4K projection, surround sound, 
+                        and luxury seating for the ultimate entertainment experience.
+                    </p>
+                </div>
+                
+                <div class="feature-luxury animate-in">
+                    <div class="feature-icon-luxury">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                    <h3 class="feature-title-luxury">Luxury Garage</h3>
+                    <p class="feature-description-luxury">
+                        Climate-controlled 4-car garage with car lift, workshop area, 
+                        and electric vehicle charging stations.
+                    </p>
+                </div>
+                
+                <div class="feature-luxury animate-in">
+                    <div class="feature-icon-luxury">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title-luxury">Smart Automation</h3>
+                    <p class="feature-description-luxury">
+                        Cutting-edge home automation system controlling lighting, climate, 
+                        security, and entertainment from anywhere in the world.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Section -->
+    <section class="price-luxury">
+        <div class="container">
+            <div class="animate-in">
+                <div class="price-display">$2.8M</div>
+                <p class="price-note">
+                    An investment in extraordinary living. This architectural masterpiece 
+                    represents the pinnacle of luxury real estate.
+                </p>
+                <a href="#contact" class="btn-luxury btn-gold">
+                    <i class="fas fa-handshake"></i>
+                    Make an Offer
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section-dark">
+        <div class="container">
+            <div class="section-header-dark animate-in">
+                <div class="section-badge">Visual Journey</div>
+                <h2 class="section-title-dark">Architectural Masterpiece</h2>
+                <p class="section-description-dark">
+                    Explore every exquisite detail of this extraordinary estate through 
+                    our curated collection of professional photography.
+                </p>
+            </div>
+            
+            <div class="gallery-luxury">
+                <div class="gallery-item-luxury animate-in">
+                    <a href="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" class="glightbox" data-gallery="estate">
+                        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Estate Exterior">
+                        <div class="gallery-overlay-luxury">
+                            <h4 class="gallery-title">Grand Entrance</h4>
+                            <p>Imposing facade with architectural grandeur</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="gallery-item-luxury animate-in">
+                    <a href="https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" class="glightbox" data-gallery="estate">
+                        <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Living Room">
+                        <div class="gallery-overlay-luxury">
+                            <h4 class="gallery-title">Grand Salon</h4>
+                            <p>Opulent living space with designer furnishings</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="gallery-item-luxury animate-in">
+                    <a href="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" class="glightbox" data-gallery="estate">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gourmet Kitchen">
+                        <div class="gallery-overlay-luxury">
+                            <h4 class="gallery-title">Chef's Kitchen</h4>
+                            <p>Professional culinary workspace</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="gallery-item-luxury animate-in">
+                    <a href="https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" class="glightbox" data-gallery="estate">
+                        <img src="https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Master Suite">
+                        <div class="gallery-overlay-luxury">
+                            <h4 class="gallery-title">Master Sanctuary</h4>
+                            <p>Private retreat with panoramic views</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="gallery-item-luxury animate-in">
+                    <a href="https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" class="glightbox" data-gallery="estate">
+                        <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Spa Bathroom">
+                        <div class="gallery-overlay-luxury">
+                            <h4 class="gallery-title">Spa Retreat</h4>
+                            <p>Luxurious bathroom with premium finishes</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="gallery-item-luxury animate-in">
+                    <a href="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" class="glightbox" data-gallery="estate">
+                        <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pool Area">
+                        <div class="gallery-overlay-luxury">
+                            <h4 class="gallery-title">Resort Pool</h4>
+                            <p>Private oasis with entertainment pavilion</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-luxury section-dark">
+        <div class="container">
+            <div class="section-header-dark animate-in">
+                <div class="section-badge">Immersive Experience</div>
+                <h2 class="section-title-dark">Cinematic Tour</h2>
+                <p class="section-description-dark">
+                    Experience the grandeur of this estate through our professionally 
+                    produced cinematic tour showcasing every luxurious detail.
+                </p>
+            </div>
+            
+            <div class="video-wrapper animate-in">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Elite Estate Cinematic Tour" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="section-dark section-accent">
+        <div class="container">
+            <div class="section-header-dark animate-in">
+                <div class="section-badge">Prestigious Address</div>
+                <h2 class="section-title-dark">Prime Location</h2>
+                <p class="section-description-dark">
+                    Situated in the most exclusive neighborhood, offering privacy, 
+                    prestige, and proximity to world-class amenities.
+                </p>
+            </div>
+            
+            <div class="map-luxury animate-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613!3d-6.2087634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sMonas%2C%20Gambir%2C%20Kecamatan%20Gambir%2C%20Kota%20Jakarta%20Pusat%2C%20Daerah%20Khusus%20Ibukota%20Jakarta%2C%20Indonesia!5e0!3m2!1sen!2sus!4v1691234567890!5m2!1sen!2sus" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-luxury">
+        <div class="container">
+            <div class="section-header-dark animate-in">
+                <div class="section-badge">Exclusive Access</div>
+                <h2 class="section-title-dark">Private Consultation</h2>
+                <p class="section-description-dark">
+                    Connect with our luxury property specialists for an exclusive viewing 
+                    and personalized consultation.
+                </p>
+            </div>
+            
+            <div class="contact-grid-luxury">
+                <div class="contact-card-luxury animate-in">
+                    <div class="contact-icon-luxury">
+                        <i class="fas fa-user-crown"></i>
+                    </div>
+                    <h3 class="contact-title-luxury">Elite Agent</h3>
+                    <div class="contact-details-luxury">
+                        <p>Victoria Sterling</p>
+                        <p>Luxury Property Specialist</p>
+                        <p><a href="mailto:victoria@eliteestate.com">victoria@eliteestate.com</a></p>
+                    </div>
+                </div>
+                
+                <div class="contact-card-luxury animate-in">
+                    <div class="contact-icon-luxury">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3 class="contact-title-luxury">Direct Line</h3>
+                    <div class="contact-details-luxury">
+                        <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                        <p>Available 24/7</p>
+                        <p>Concierge Service</p>
+                    </div>
+                </div>
+                
+                <div class="contact-card-luxury animate-in">
+                    <div class="contact-icon-luxury">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="contact-title-luxury">Private Office</h3>
+                    <div class="contact-details-luxury">
+                        <p>Elite Estate Group</p>
+                        <p>Penthouse Suite 4000</p>
+                        <p>Luxury Tower, Premium District</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="https://wa.me/62895332782122?text=I%27m%20interested%20in%20the%20Elite%20Estate%20luxury%20property.%20Please%20arrange%20a%20private%20viewing%20at%20your%20earliest%20convenience." 
+                   class="whatsapp-luxury animate-in" 
+                   target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    Exclusive WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GLightbox JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    
+    <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Initialize GLightbox
+        const lightbox = GLightbox({
+            touchNavigation: true,
+            loop: true,
+            autoplayVideos: false
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Particle animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-dark');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
